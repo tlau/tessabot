@@ -1,5 +1,5 @@
 <head>
-  <title>meteor-seed</title>
+  <title>TessaBot</title>
 </head>
 
 <body>
@@ -8,17 +8,64 @@
       <ul>
         <li class="name">
           <h1>
-            <a href="#">Meteor Seed</a>
+            <a href="#">TessaBot</a>
           </h1>
         </li>
       </ul>
     </nav>
   </div>
 
-  {{> hello}}
+  <div class="row">
+    <div class="large-8 columns">
+      {{> video}}
+    </div>
+    <div class="large-4 columns">
+      {{> teleop}}
+    </div>
+  </div>
 </body>
 
-<template name="hello">
-  <h1>Hello World!</h1>
-  {{greeting}}
+<template name="video">
+  <h1>Video feed</h1>
+  
+  <div class="row">
+    <div class="small-12 columns">
+      <div class="video">
+        <div id="mute">Muted</div>
+        <video class="them" autoplay="true"></video>
+        <video class="me rtc-pip" autoplay="true" muted="muted"></video>
+      </div>
+    </div>
+    <div class="small-12 columns">
+      <button class="button" id="startVideo">Start video</a>
+    </div>
+  </div>
+
+</template>
+
+<template name="teleop">
+  <h1>Teleop</h1>
+  <div class="row">
+    <div class="small-4 columns">&nbsp;</div>
+    <div class="small-4 columns">
+      <button class="button round" id="up">Up</a>
+    </div>
+    <div class="small-4 columns">&nbsp;</div>
+  </div>
+  <div class="row">
+    <div class="small-4 columns">
+      <button class="button round" id="left">Left</a>
+    </div>
+    <div class="small-4 columns"></div>
+    <div class="small-4 columns">
+      <button class="button round" id="right">Right</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-4 columns">&nbsp;</div>
+    <div class="small-4 columns">
+      <button class="button round" id="down">Down</a>
+    </div>
+    <div class="small-4 columns">&nbsp;</div>
+  </div>
 </template>

@@ -9,3 +9,8 @@ Meteor.publish('users', function() {
 });
 */
 
+/*
+Meteor.publish('teleop', function() {
+  return Teleop.find({});
+});
+*/

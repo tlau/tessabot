@@ -1,7 +1,6 @@
-Meteor seed
-===========
+TessaBot
+========
 
-This is a seed for new Meteor apps.
+Web-based client for controlling a telepresence robot.
 
-It sets up a minimal directory structure according to the unofficial Meteor FAQ,
-and adds ZURB Foundation.
+Based on tlau/meteor-seed.
