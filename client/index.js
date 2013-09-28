@@ -40,74 +40,43 @@ Template.video.myVideoSrc = function() {
 
 /* Teleop functionality */
 
-var teleop_cb = null;
-
-var Robot = {
-  forward: function() {
-    $('#forward').addClass('alert');
-    teleop_cb = window.setInterval(function() {
-      console.log('FORWARD');
-      // Send a Twist message to the robot
-      var msg = new ROSLIB.Message({
-        'linear': { 'x': 0, 'y': 0.5, 'z': 0 },
-        'angular': { 'x': 0, 'y': 0, 'z': 0 }
-      });
-      CMDVEL.publish(msg);
-    }, 250);
-  },
-
-  back : function() {
-    $('#back').addClass('alert');
-    teleop_cb = window.setInterval(function() {
-      console.log('BACK');
-      // Send a Twist message to the robot
-      var msg = new ROSLIB.Message({
-        'linear': { 'x': 0, 'y': -0.5, 'z': 0 },
-        'angular': { 'x': 0, 'y': 0, 'z': 0 }
-      });
-      CMDVEL.publish(msg);
-    }, 250);
-  },
-
-  left: function() {
-    $('#left').addClass('alert');
-    teleop_cb = window.setInterval(function() {
-      console.log('LEFT');
-      // Send a Twist message to the robot
-      var msg = new ROSLIB.Message({
-        'linear': { 'x': 0, 'y': 0, 'z': 0 },
-        'angular': { 'x': -0.5, 'y': 0, 'z': 0 }
-      });
-      CMDVEL.publish(msg);
-    }, 250);
-  },
-
-  right: function() {
-    $('#right').addClass('alert');
-    teleop_cb = window.setInterval(function() {
-      console.log('RIGHT');
-      // Send a Twist message to the robot
-      var msg = new ROSLIB.Message({
-        'linear': { 'x': 0, 'y': 0, 'z': 0 },
-        'angular': { 'x': 0.5, 'y': 0, 'z': 0 }
-      });
-      CMDVEL.publish(msg);
-    }, 250);
-  },
-
-  stop_moving: function() {
-    if (teleop_cb) {
-      window.clearInterval(teleop_cb);
-      teleop_cb = null;
-    }
-    $('#forward').removeClass('alert');
-    $('#back').removeClass('alert');
-    $('#left').removeClass('alert');
-    $('#right').removeClass('alert');
-  }
+Template.teleop.rendered = function() {
+  $('#hidden_input').focus();
 };
 
+var key_pressed = null;
+
 Template.teleop.events({
+  'keydown input': function(evt) {
+    console.log(evt.keyIdentifier);
+    if (evt.keyCode == 37) { // left
+      if (key_pressed != evt.keyCode) {
+        Robot.left();
+        key_pressed = evt.keyCode;
+      }
+    } else if (evt.keyCode == 38) { // up
+      if (key_pressed != evt.keyCode) {
+        Robot.forward();
+        key_pressed = evt.keyCode;
+      }
+    } else if (evt.keyCode == 39) { // right
+      if (key_pressed != evt.keyCode) {
+        console.log('sending robot right');
+        Robot.right();
+        key_pressed = evt.keyCode;
+      }
+    } else if (evt.keyCode == 40) { // down
+      if (key_pressed != evt.keyCode) {
+        Robot.back();
+        key_pressed = evt.keyCode;
+      }
+    }
+  },
+  'keyup input': function(evt) {
+    console.log('key released', evt.keyIdentifier);
+    Robot.stop_moving();
+    key_pressed = null;
+  },
   'mousedown #forward': function() {
     Robot.forward();
   },
