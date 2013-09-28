@@ -7,4 +7,12 @@
 
 Meteor.subscribe('teleop');
 
-var ws = new WebSocket('ws://localhost:9099');
+var ros = new ROSLIB.Ros();
+ros.connect('ws://192.168.2.107:9090/');
+CMDVEL = new ROSLIB.Topic({
+  'ros': ros,
+  'name': '/cmd_vel',
+  'messageType': 'geometry_msgs/Twist'
+  }
+);
+

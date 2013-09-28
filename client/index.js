@@ -40,29 +40,95 @@ Template.video.myVideoSrc = function() {
 
 /* Teleop functionality */
 
+var teleop_cb = null;
+
 Template.teleop.events({
   'mousedown #up': function() {
-    console.log('Start up');
+    teleop_cb = window.setInterval(function() {
+      console.log('UP');
+      // Send a Twist message to the robot
+      var msg = new ROSLIB.Message({
+        'linear': {
+          'x': 0,
+          'y': 0.5,
+          'z': 0
+        },
+        'angular': {
+          'x': 0,
+          'y': 0,
+          'z': 0
+        }
+      });
+
+      CMDVEL.publish(msg);
+    }, 250);
+
   },
-  'mouseup #up': function() {
-    console.log('End up');
+  'mouseup': function() {
+    console.log('End motion');
+    if (teleop_cb) {
+      window.clearInterval(teleop_cb);
+      teleop_cb = null;
+    }
   },
   'mousedown #down': function() {
-    console.log('Start down');
-  },
-  'mouseup #down': function() {
-    console.log('End down');
+    teleop_cb = window.setInterval(function() {
+      console.log('DOWN');
+      // Send a Twist message to the robot
+      var msg = new ROSLIB.Message({
+        'linear': {
+          'x': 0,
+          'y': -0.5,
+          'z': 0
+        },
+        'angular': {
+          'x': 0,
+          'y': 0,
+          'z': 0
+        }
+      });
+
+      CMDVEL.publish(msg);
+    }, 250);
   },
   'mousedown #left': function() {
-    console.log('Start left');
-  },
-  'mouseup #left': function() {
-    console.log('End left');
+    teleop_cb = window.setInterval(function() {
+      console.log('LEFT');
+      // Send a Twist message to the robot
+      var msg = new ROSLIB.Message({
+        'linear': {
+          'x': 0,
+          'y': 0,
+          'z': 0
+        },
+        'angular': {
+          'x': -0.5,
+          'y': 0,
+          'z': 0
+        }
+      });
+
+      CMDVEL.publish(msg);
+    }, 250);
   },
   'mousedown #right': function() {
-    console.log('Start right');
-  },
-  'mouseup #right': function() {
-    console.log('End right');
-  },
+    teleop_cb = window.setInterval(function() {
+      console.log('RIGHT');
+      // Send a Twist message to the robot
+      var msg = new ROSLIB.Message({
+        'linear': {
+          'x': 0,
+          'y': 0,
+          'z': 0
+        },
+        'angular': {
+          'x': 0.5,
+          'y': 0,
+          'z': 0
+        }
+      });
+
+      CMDVEL.publish(msg);
+    }, 250);
+  }
 });
