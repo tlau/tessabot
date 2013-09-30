@@ -7,7 +7,7 @@ Robot = {
       console.log('SENDING FORWARD TWIST');
       // Send a Twist message to the robot
       var msg = new ROSLIB.Message({
-        'linear': { 'x': 0, 'y': 0.5, 'z': 0 },
+        'linear': { 'x': 0.2, 'y': 0, 'z': 0 },
         'angular': { 'x': 0, 'y': 0, 'z': 0 }
       });
       CMDVEL.publish(msg);
@@ -20,7 +20,7 @@ Robot = {
       console.log('SENDING BACK TWIST');
       // Send a Twist message to the robot
       var msg = new ROSLIB.Message({
-        'linear': { 'x': 0, 'y': -0.5, 'z': 0 },
+        'linear': { 'x': -0.2, 'y': 0, 'z': 0 },
         'angular': { 'x': 0, 'y': 0, 'z': 0 }
       });
       CMDVEL.publish(msg);
@@ -34,7 +34,7 @@ Robot = {
       // Send a Twist message to the robot
       var msg = new ROSLIB.Message({
         'linear': { 'x': 0, 'y': 0, 'z': 0 },
-        'angular': { 'x': -0.5, 'y': 0, 'z': 0 }
+        'angular': { 'x': 0, 'y': 0, 'z': 1 }
       });
       CMDVEL.publish(msg);
     }, 250);
@@ -47,7 +47,7 @@ Robot = {
       // Send a Twist message to the robot
       var msg = new ROSLIB.Message({
         'linear': { 'x': 0, 'y': 0, 'z': 0 },
-        'angular': { 'x': 0.5, 'y': 0, 'z': 0 }
+        'angular': { 'x': 0, 'y': 0, 'z': -1 }
       });
       CMDVEL.publish(msg);
     }, 250);

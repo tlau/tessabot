@@ -17,13 +17,20 @@
 
   <div class="row">
     <div class="large-8 columns">
-      {{> video}}
+      {{> connection}}
     </div>
     <div class="large-4 columns">
       {{> teleop}}
     </div>
   </div>
 </body>
+
+<template name="connection">
+  <h1>Connect to</h1>
+  <input id="wspath" type="text" value="{{wspath}}">
+  <button id="connect" class="button">Connect</button>
+  <div id="status">{{status}}</div>
+</template>
 
 <template name="video">
   <h1>Video feed</h1>
@@ -48,23 +55,23 @@
   <div class="row">
     <div class="small-4 columns">&nbsp;</div>
     <div class="small-4 columns">
-      <button class="button round" id="forward">Forward</a>
+      <button class="button round {{disabledState}}" id="forward">Forward</a>
     </div>
     <div class="small-4 columns">&nbsp;</div>
   </div>
   <div class="row">
     <div class="small-4 columns">
-      <button class="button round" id="left">Left</a>
+      <button class="button round {{disabledState}}" id="left">Left</a>
     </div>
     <div class="small-4 columns"></div>
     <div class="small-4 columns">
-      <button class="button round" id="right">Right</a>
+      <button class="button round {{disabledState}}" id="right">Right</a>
     </div>
   </div>
   <div class="row">
     <div class="small-4 columns">&nbsp;</div>
     <div class="small-4 columns">
-      <button class="button round" id="back">Back</a>
+      <button class="button round {{disabledState}}" id="back">Back</a>
     </div>
     <div class="small-4 columns">&nbsp;</div>
   </div>
