@@ -12,4 +12,15 @@ Meteor.startup(function () {
   });
   */
 
+  var Zmq = Meteor.require('zmq');
+  var sock = Zmq.socket('push');
+  sock.bindSync('tcp://127.0.0.1:3010');
+  console.log('Node server bound to port 3010');
+
+  Teleop.on('message', function(msg) {
+    console.log('Received message:', msg);
+    // Turn around and send it to zmq
+    sock.send(msg);
+  });
+
 });
